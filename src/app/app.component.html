@@ -1,0 +1,11 @@
+<!-- src/app/app.component.html -->
+<div *ngIf="currentUser; else loginRegisterLinks">
+  <p>Welcome, {{ currentUser.email }}</p>
+  <button (click)="logout()">Logout</button>
+</div>
+
+<ng-template #loginRegisterLinks>
+  <a routerLink="/login">Login</a> | <a routerLink="/register">Register</a>
+</ng-template>
+
+<router-outlet></router-outlet>
