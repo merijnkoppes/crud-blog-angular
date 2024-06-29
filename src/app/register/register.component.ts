@@ -1,6 +1,7 @@
 // src/app/register/register.component.ts
 import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
+import { FirebaseService } from '../firebase.service';
 
 @Component({
   selector: 'app-register',
@@ -9,8 +10,18 @@ import { AuthService } from '../auth.service';
 export class RegisterComponent {
   email: string = '';
   password: string = '';
-
-  constructor(private authService: AuthService) {}
+  newDoc: any;
+  currentUser: any;
+  constructor(
+    private authService: AuthService,
+    private firebaseService: FirebaseService
+  ) {}
+  ngOnInit() {
+    this.authService.getCurrentUser().subscribe((user) => {
+      this.currentUser = user;
+      console.log('Current User:', this.currentUser);
+    });
+  }
 
   async register() {
     try {
@@ -21,9 +32,23 @@ export class RegisterComponent {
       if (userCredential.user) {
         await this.authService.saveUserData(userCredential.user);
       }
-      // Handle successful registration
     } catch (error) {
-      // Handle error
+      console.error('Error during registration:', error);
     }
   }
+
+  // async addStaticTestData() {
+  //   try {
+  //     const testDoc = {
+  //       name: 'Static Test User',
+  //       email: 'testuser@example.com',
+  //       createdAt: new Date(),
+  //     };
+  //     console.log('Static test document:', testDoc);
+  //     await this.firebaseService.addDocument('testCollection', testDoc);
+  //     console.log('Static test document added successfully.');
+  //   } catch (error) {
+  //     console.error('Error adding static test document:', error);
+  //   }
+  // }
 }
