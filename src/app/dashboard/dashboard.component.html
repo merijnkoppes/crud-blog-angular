@@ -1,0 +1,14 @@
+<table>
+    <thead>
+        <tr>
+            <th>Blogs</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let blog of blogs">
+            <td>{{ blog.blogTitle }}</td>
+            <td><a [routerLink]="['/blog', blog.id]">View</a></td>
+        </tr>
+    </tbody>
+</table>

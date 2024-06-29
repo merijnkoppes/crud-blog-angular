@@ -1,11 +1,23 @@
 <!-- src/app/app.component.html -->
-<div *ngIf="currentUser; else loginRegisterLinks">
-  <p>Welcome, {{ currentUser.email }}</p>
-  <button (click)="logout()">Logout</button>
-</div>
+<header>
+  <div class="navbar">
+    <a class="navbar-brand" routerLink="/dashboard">Merijn's Blog Project</a>
 
-<ng-template #loginRegisterLinks>
-  <a routerLink="/login">Login</a> | <a routerLink="/register">Register</a>
-</ng-template>
+    <div class="navbar-links">
+      <ng-container *ngIf="currentUser; else loginLinks">
+        <span>Welcome, {{ currentUser.email }}</span>
+        <a (click)="logout()">Logout</a>
+      </ng-container>
+      <ng-template #loginLinks>
+        <a routerLink="/login">Login</a>
+        <a routerLink="/register">Register</a>
+      </ng-template>
+    </div>
+  </div>
+</header>
 
-<router-outlet></router-outlet>
+<main>
+  <div class="container">
+    <router-outlet></router-outlet>
+  </div>
+</main>

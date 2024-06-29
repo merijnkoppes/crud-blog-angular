@@ -1,6 +1,7 @@
 // src/app/login/login.component.ts
 import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +11,7 @@ export class LoginComponent {
   email: string = '';
   password: string = '';
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   async login() {
     try {
@@ -18,6 +19,8 @@ export class LoginComponent {
       // Handle successful login
     } catch (error) {
       // Handle error
+      return;
     }
+    this.router.navigate(['/dashboard']);
   }
 }

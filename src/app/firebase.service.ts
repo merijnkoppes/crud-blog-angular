@@ -11,10 +11,20 @@ export class FirebaseService {
     return this.firestore.collection(collectionName).snapshotChanges();
   }
 
+  getDocument(collectionName: string, documentId: string) {
+    return this.firestore.collection(collectionName).doc(documentId).get();
+  }
+
   addDocument(collectionName: string, document: any) {
     return this.firestore.collection(collectionName).add(document);
   }
 
+  async addDocumentAndGetId(collectionName: string, document: any) {
+    const docRef = await this.firestore
+      .collection(collectionName)
+      .add(document);
+    return docRef.id;
+  }
   deleteDocument(collectionName: string, documentId: string) {
     return this.firestore.doc(`${collectionName}/${documentId}`).delete();
   }

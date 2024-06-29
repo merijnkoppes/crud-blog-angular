@@ -34,13 +34,23 @@ export class AuthService {
     return this.afAuth.authState;
   }
 
-  saveUserData(user: firebase.User) {
-    const testDoc = {
-      name: user.uid,
-      email: user.email,
-      createdAt: new Date(),
+  async saveUserData(user: firebase.User) {
+    const newBlogDoc = {
+      userId: user.uid,
+      blogTitle: user.email,
     };
-    return this.firebaseService.addDocument('users', testDoc);
+    const blogId = await this.firebaseService.addDocumentAndGetId(
+      'blogs',
+      newBlogDoc
+    );
+    const newUserDoc = {
+      id: user.uid,
+      email: user.email,
+      role: 0,
+      createdAt: new Date(),
+      blogId: blogId,
+    };
+    return this.firebaseService.addDocument('users', newUserDoc);
     // return this.firebaseService.addDocumentWithId('users', user.uid, {
     //   uid: user.uid,
     //   email: user.email,

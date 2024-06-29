@@ -2,6 +2,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { FirebaseService } from '../firebase.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -14,7 +15,8 @@ export class RegisterComponent {
   currentUser: any;
   constructor(
     private authService: AuthService,
-    private firebaseService: FirebaseService
+    private firebaseService: FirebaseService,
+    private router: Router
   ) {}
   ngOnInit() {
     this.authService.getCurrentUser().subscribe((user) => {
@@ -34,7 +36,9 @@ export class RegisterComponent {
       }
     } catch (error) {
       console.error('Error during registration:', error);
+      return;
     }
+    this.router.navigate(['/dashboard']);
   }
 
   // async addStaticTestData() {
