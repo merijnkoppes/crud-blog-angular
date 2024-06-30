@@ -1,6 +1,9 @@
+// src/app/dashboard/dashboard.component.ts
 import { Component, OnInit } from '@angular/core';
 import { FirebaseService } from '../firebase.service';
+import { AuthService } from '../auth.service';
 import { map } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,14 +11,23 @@ import { map } from 'rxjs/operators';
 })
 export class DashboardComponent implements OnInit {
   blogs: any[] = [];
+  currentUserBlog: any = null;
 
-  constructor(private firebaseService: FirebaseService) {}
+  constructor(
+    private firebaseService: FirebaseService,
+    public authService: AuthService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-    this.loadBlogs();
+    this.authService.getCurrentUser().subscribe((user) => {
+      if (user) {
+        this.loadBlogs(user.uid);
+      }
+    });
   }
 
-  loadBlogs(): void {
+  loadBlogs(userId: string): void {
     this.firebaseService
       .getCollectionData('blogs')
       .pipe(
@@ -28,7 +40,14 @@ export class DashboardComponent implements OnInit {
         )
       )
       .subscribe((data) => {
-        this.blogs = data;
+        this.blogs = data.filter((blog) => blog.userId !== userId);
+        this.currentUserBlog = data.find((blog) => blog.userId === userId);
       });
+  }
+
+  goToMyBlog(): void {
+    if (this.currentUserBlog) {
+      this.router.navigate(['/blog', this.currentUserBlog.id]);
+    }
   }
 }

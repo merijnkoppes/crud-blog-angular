@@ -14,9 +14,17 @@ import { FormsModule } from '@angular/forms'; // Import FormsModule
 import { AppRoutingModule } from './app-routing.module';
 import { BlogComponent } from './blog/blog.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+// import { BlogpostComponent } from './blogpost/blogpost.component';
+// import { AddblogpostComponent } from './addblogpost/addblogpost.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, RegisterComponent, BlogComponent, DashboardComponent],
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    RegisterComponent,
+    BlogComponent,
+    DashboardComponent,
+  ],
   imports: [
     BrowserModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),

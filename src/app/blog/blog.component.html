@@ -1,4 +1,14 @@
+<!-- src/app/blog/blog.component.html -->
 <div *ngIf="blog">
-    <h1>{{ blog.title }}</h1>
+    <h1>{{ blog.blogTitle }}</h1>
     <p>{{ blog.content }}</p>
+
+    <div *ngIf="currentUser && currentUser.uid === blog.userId">
+        <!-- <button (click)="addBlogPost()">Add Blog Post</button> -->
+    </div>
+
+    <h2>Blog Posts</h2>
+    <div *ngFor="let post of blogPosts">
+        <!-- <app-blog-post [post]="post"></app-blog-post> -->
+    </div>
 </div>

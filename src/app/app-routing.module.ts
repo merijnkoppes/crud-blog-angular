@@ -6,6 +6,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { BlogComponent } from './blog/blog.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+// import { AddblogpostComponent } from './addblogpost/addblogpost.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -14,6 +15,10 @@ const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' }, // Default route
   { path: 'blog/:id', component: BlogComponent },
   { path: 'dashboard', component: DashboardComponent },
+  // {
+  //   path: 'add-blogpost/:id',
+  //   component: AddblogpostComponent,
+  // },
 ];
 
 @NgModule({

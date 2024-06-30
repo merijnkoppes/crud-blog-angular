@@ -7,6 +7,10 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 export class FirebaseService {
   constructor(private firestore: AngularFirestore) {}
 
+  getCollectionDataWithQuery(collectionName: string, queryFn?: any) {
+    return this.firestore.collection(collectionName, queryFn).snapshotChanges();
+  }
+
   getCollectionData(collectionName: string) {
     return this.firestore.collection(collectionName).snapshotChanges();
   }
@@ -38,5 +42,11 @@ export class FirebaseService {
     return this.firestore
       .doc(`${collectionName}/${documentId}`)
       .update(document);
+  }
+
+  getBlogPostsByBlogId(blogId: string) {
+    return this.firestore
+      .collection('blogposts', (ref) => ref.where('blogId', '==', blogId))
+      .snapshotChanges();
   }
 }

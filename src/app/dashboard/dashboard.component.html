@@ -1,14 +1,22 @@
-<table>
-    <thead>
-        <tr>
-            <th>Blogs</th>
+<!-- src/app/dashboard/dashboard.component.html -->
+<div class="container">
+    <h2>Blogs<button *ngIf="currentUserBlog" (click)="goToMyBlog()">My Blog</button></h2>
 
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let blog of blogs">
-            <td>{{ blog.blogTitle }}</td>
-            <td><a [routerLink]="['/blog', blog.id]">View</a></td>
-        </tr>
-    </tbody>
-</table>
+    <div>
+
+    </div>
+
+    <table *ngIf="blogs.length > 0">
+
+        <tbody>
+            <tr *ngFor="let blog of blogs">
+                <td>{{ blog.blogTitle }}</td>
+                <td><a [routerLink]="['/blog', blog.id]">View</a></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div *ngIf="blogs.length === 0">
+        <p>No blogs found.</p>
+    </div>
+</div>
