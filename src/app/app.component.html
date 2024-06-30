@@ -6,7 +6,8 @@
       <ng-container *ngIf="currentUser; else loginLinks">
         <span>Welcome, {{ currentUser.email }}</span>
         <a (click)="logout()">Logout</a>
-      </ng-container> <a routerLink="/dashboard">Back to dashboard</a>
+        <a routerLink="/dashboard">Back to dashboard</a>
+      </ng-container>
       <ng-template #loginLinks>
         <a routerLink="/login">Login</a>
         <a routerLink="/register">Register</a>
@@ -15,7 +16,6 @@
   </div>
 </header>
 <main>
-
   <div class="container">
     <router-outlet></router-outlet>
   </div>
