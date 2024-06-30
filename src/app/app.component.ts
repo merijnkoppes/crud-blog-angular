@@ -1,4 +1,3 @@
-// src/app/app.component.ts
 import { Component } from '@angular/core';
 import { AuthService } from './auth.service';
 import firebase from 'firebase/compat/app';

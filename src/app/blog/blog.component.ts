@@ -13,6 +13,8 @@ export class BlogComponent implements OnInit {
   blogId: string | null = null;
   blogPosts: any[] = [];
   currentUser: any;
+  newPostTitle: string = '';
+  newPostContent: string = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -48,6 +50,25 @@ export class BlogComponent implements OnInit {
         post.id = a.payload.doc.id;
         return post;
       });
+    });
+  }
+
+  addBlogPost(): void {
+    if (this.newPostTitle.trim() === '' || this.newPostContent.trim() === '') {
+      return;
+    }
+
+    const newPost = {
+      title: this.newPostTitle,
+      content: this.newPostContent,
+      blogId: this.blogId,
+      createdAt: new Date(),
+    };
+
+    this.firebaseService.addDocument('blogposts', newPost).then(() => {
+      this.newPostTitle = '';
+      this.newPostContent = '';
+      this.loadBlogPosts(this.blogId!);
     });
   }
 }

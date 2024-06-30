@@ -1,14 +1,22 @@
-<!-- src/app/blog/blog.component.html -->
 <div *ngIf="blog">
-    <h1>{{ blog.blogTitle }}</h1>
+    <h1>{{ blog.blogTitle }}'s blog</h1>
     <p>{{ blog.content }}</p>
 
     <div *ngIf="currentUser && currentUser.uid === blog.userId">
-        <!-- <button (click)="addBlogPost()">Add Blog Post</button> -->
+        <form (ngSubmit)="addBlogPost()">
+            <label for="postTitle">Post Title</label>
+            <input id="postTitle" [(ngModel)]="newPostTitle" name="title" required>
+
+            <label for="postContent">Post Content</label>
+            <textarea id="postContent" [(ngModel)]="newPostContent" name="content" required></textarea>
+
+            <button type="submit">Add Blog Post</button>
+        </form>
     </div>
 
     <h2>Blog Posts</h2>
     <div *ngFor="let post of blogPosts">
-        <!-- <app-blog-post [post]="post"></app-blog-post> -->
+        <h3>{{ post.title }}</h3>
+        <p>{{ post.content }}</p>
     </div>
 </div>

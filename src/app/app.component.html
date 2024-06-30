@@ -1,4 +1,3 @@
-<!-- src/app/app.component.html -->
 <header>
   <div class="navbar">
     <a class="navbar-brand" routerLink="/dashboard">Merijn's Blog Project</a>
@@ -7,7 +6,7 @@
       <ng-container *ngIf="currentUser; else loginLinks">
         <span>Welcome, {{ currentUser.email }}</span>
         <a (click)="logout()">Logout</a>
-      </ng-container>
+      </ng-container> <a routerLink="/dashboard">Back to dashboard</a>
       <ng-template #loginLinks>
         <a routerLink="/login">Login</a>
         <a routerLink="/register">Register</a>
@@ -15,8 +14,8 @@
     </div>
   </div>
 </header>
-
 <main>
+
   <div class="container">
     <router-outlet></router-outlet>
   </div>
